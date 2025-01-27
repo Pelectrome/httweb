@@ -1,9 +1,4 @@
 body {
-  user-select: none; /* Disable text selection */
-  -webkit-user-select: none; /* For WebKit-based browsers (Safari, Chrome) */
-  -moz-user-select: none; /* For Firefox */
-  -ms-user-select: none; /* For Internet Explorer/Edge */
-  touch-action: none; /* Prevents touch actions like selection on touch devices */
   font-family: Arial, sans-serif;
   background-color: #f4f4f9;
   margin: 0;
@@ -13,6 +8,12 @@ body {
   align-items: center;
   height: 100vh;
   overflow: hidden;
+
+  user-select: none; /* Disable text selection */
+  -webkit-user-select: none; /* For WebKit-based browsers (Safari, Chrome) */
+  -moz-user-select: none; /* For Firefox */
+  -ms-user-select: none; /* For Internet Explorer/Edge */
+  touch-action: none; /* Prevents touch actions like selection on touch devices */
   -webkit-tap-highlight-color: transparent;
 }
 

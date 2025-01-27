@@ -184,3 +184,24 @@ function exitControl() {
   //     });
   // }
 }
+
+let wakeLock = null;
+
+async function requestWakeLock() {
+  try {
+    // Check if the browser supports the Screen Wake Lock API
+    if ("wakeLock" in navigator) {
+      wakeLock = await navigator.wakeLock.request("screen");
+      console.log("Screen wake lock acquired");
+    } else {
+      console.log("Screen Wake Lock API not supported");
+    }
+  } catch (err) {
+    console.error("Failed to acquire wake lock:", err);
+  }
+}
+
+// Request wake lock when the page is loaded
+window.addEventListener("load", () => {
+  requestWakeLock();
+});

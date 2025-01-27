@@ -248,12 +248,34 @@ function move(direction) {
   // Add your logic to send the direction command to the robot
 }
 
+const speedSlider = document.getElementById("speed");
+const speedValueDisplay = document.getElementById("speed-value");
+
+// Variable to store the current slider value
+let currentSpeed = speedSlider.value;
+
+// Function to update speed value
 function updateSpeed(value) {
-  document.getElementById("speed-value").textContent = value;
-  console.log(`Speed set to ${value}%`);
+  speedValueDisplay.textContent = `Speed: ${value}`;
+  console.log(`Speed updated to: ${value}`);
   writeCharacteristic(SpeedCharacteristic_uuid, value.toString());
-  // Add your logic to send the speed value to the robot
 }
+
+// Listen for the input event (to preview the value while dragging)
+speedSlider.addEventListener("input", (event) => {
+  currentSpeed = event.target.value; // Update the current speed value
+  speedValueDisplay.textContent = `Speed: ${currentSpeed}`; // Show live value
+});
+
+// Trigger the function only when the slider interaction ends
+speedSlider.addEventListener("mouseup", () => {
+  updateSpeed(currentSpeed); // Call the function with the final value
+});
+
+// For touchscreens, listen to the 'touchend' event
+speedSlider.addEventListener("touchend", () => {
+  updateSpeed(currentSpeed); // Call the function with the final value
+});
 
 function toggleLight() {
   lightOn = !lightOn;

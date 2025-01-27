@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homing Tool Tray</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="connect-screen">
+        <h1 style="color: white; margin-bottom: 20px;">Homing Tool Tray</h1>
+        <button onclick="startControl()">Connect</button>
+        <button onclick="readCharacteristic()">read</button>
+        <button onclick="sendData('Hello')">send</button>
+    </div>
+    <div id="main" class="fullscreen">
+        <div class="left-panel">
+            <div class="slider-container">
+                <label for="speed">Speed: <span id="speed-value">50</span>%</label>
+                <input type="range" id="speed" min="0" max="100" value="50" oninput="updateSpeed(this.value)">
+            </div>
+            <button id="light" class="light-button" onclick="toggleLight()">Light Off</button>
+            <button class="exit-button" onclick="exitControl()">X</button>
+        </div>
+        <div class="right-panel">
+            <div class="control-buttons">
+                <button class="up" onclick="move('forward')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polygon points="12,4 4,16 20,16" />
+                    </svg>
+                </button>
+                <button class="down" onclick="move('backward')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polygon points="12,20 4,8 20,8" />
+                    </svg>
+                </button>
+                <button class="left" onclick="move('left')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polygon points="4,12 16,4 16,20" />
+                    </svg>
+                </button>
+                <button class="right" onclick="move('right')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polygon points="20,12 8,4 8,20" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+
+</html>

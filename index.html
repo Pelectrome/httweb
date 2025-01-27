@@ -11,9 +11,9 @@
 <body>
     <div class="connect-screen">
         <h1 style="color: white; margin-bottom: 20px;">Homing Tool Tray</h1>
-        <button onclick="startControl()">Connect</button>
-        <!-- <button onclick="readCharacteristic()">read</button>
-        <button onclick="sendData('Hello')">send</button> -->
+        <button onclick="startControl('00001996-0000-1000-8000-00805f9b34fb')">Connect</button>
+        <button onclick="readCharacteristic('00001996-0000-1000-8000-00805f9b34fb')">read</button>
+        <button onclick="writeCharacteristic('00001996-0000-1000-8000-00805f9b34fb','Hello')">send</button>
     </div>
     <div id="main" class="fullscreen">
         <div class="left-panel">

@@ -1,11 +1,10 @@
 let bleDevice;
-let bleCharacteristic;
 let characteristicsArray = []; // Declare an array to store characteristics
 
 const deviceName = "Homing Tool Tray"; // Change this to your device's name
 const bleService = "00001995-0000-1000-8000-00805f9b34fb"; // Replace with your service UUID
 // Array of UUIDs to subscribe to
-const targetUUIDs = [
+const targetSubscribeUUIDs = [
   "00001996-0000-1000-8000-00805f9b34fb", // Replace with your UUIDs
   // "00001997-0000-1000-8000-00805f9b34fb", // Example of another UUID
 ];
@@ -50,10 +49,10 @@ function connectToBLEDevice(callback) {
       console.log("Characteristics array:", characteristicsArray);
 
       // Iterate over the array of UUIDs
-      targetUUIDs.forEach((targetUUID) => {
+      targetSubscribeUUIDs.forEach((targetSubscribeUUIDs) => {
         // Find the characteristic that matches the UUID
         const targetCharacteristic = characteristicsArray.find(
-          (char) => char.uuid === targetUUID
+          (char) => char.uuid === targetSubscribeUUIDs
         );
 
         if (targetCharacteristic) {
@@ -115,43 +114,66 @@ function handleNotifications(event) {
   console.log(`Notification from characteristic: ${characteristic.uuid}`);
   console.log(`Data received: ${receivedData}`);
 }
-function readCharacteristic() {
-  if (!bleCharacteristic) {
-    console.log("No characteristic to read!");
+function readCharacteristic(targetUUID) {
+  if (!characteristicsArray || characteristicsArray.length === 0) {
+    console.log("No characteristics available!");
     return;
   }
 
-  bleCharacteristic
+  // Find the characteristic with the given UUID in the existing array
+  const characteristicToRead = characteristicsArray.find(
+    (char) => char.uuid === targetUUID
+  );
+
+  if (!characteristicToRead) {
+    console.log(`Characteristic with UUID ${targetUUID} not found!`);
+    return;
+  }
+
+  // Read the value from the found characteristic
+  characteristicToRead
     .readValue()
     .then((value) => {
       const decoder = new TextDecoder();
       const receivedData = decoder.decode(value);
-      console.log(`Data received: ${receivedData}`);
+      console.log(`Data received from UUID ${targetUUID}: ${receivedData}`);
     })
     .catch((error) => {
       console.error("Error reading characteristic:", error);
     });
 }
 
-function sendData(data) {
-  if (!bleDevice || !bleCharacteristic) {
-    console.log("Not connected to any device.");
+function writeCharacteristic(targetUUID, data) {
+  if (!characteristicsArray || characteristicsArray.length === 0) {
+    console.log("No characteristics available!");
     return;
   }
 
+  // Find the characteristic with the given UUID in the existing array
+  const characteristicToWrite = characteristicsArray.find(
+    (char) => char.uuid === targetUUID
+  );
+
+  if (!characteristicToWrite) {
+    console.log(`Characteristic with UUID ${targetUUID} not found!`);
+    return;
+  }
+
+  // Convert the data into a buffer using TextEncoder
   const encoder = new TextEncoder();
   const dataBuffer = encoder.encode(data);
 
-  bleCharacteristic
+  // Write the data to the characteristic
+  characteristicToWrite
     .writeValue(dataBuffer)
     .then(() => {
-      console.log("Data sent successfully!");
+      console.log(`Data sent to UUID ${targetUUID} successfully!`);
     })
-
     .catch((error) => {
       console.error("Bluetooth Error:", error);
     });
 }
+
 // Handle device disconnection
 function onDisconnected(event) {
   console.log("Device disconnected:", event.target);

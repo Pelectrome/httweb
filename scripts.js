@@ -283,7 +283,6 @@ let currentSpeed = speedSlider.value;
 
 // Function to update speed value
 function updateSpeed(value) {
-  speedValueDisplay.textContent = `Speed: ${value}`;
   console.log(`Speed updated to: ${value}`);
   writeCharacteristic(SpeedCharacteristic_uuid, value.toString());
 }

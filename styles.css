@@ -147,6 +147,11 @@ body {
 
 .light-on {
   background: #27ae60;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  touch-action: none;
 }
 
 .exit-button {

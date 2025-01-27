@@ -1,9 +1,14 @@
 let bleDevice;
 let bleCharacteristic;
+let characteristicsArray = []; // Declare an array to store characteristics
 
 const deviceName = "Homing Tool Tray"; // Change this to your device's name
 const bleService = "00001995-0000-1000-8000-00805f9b34fb"; // Replace with your service UUID
-const bleCharacteristicUUID = "00001996-0000-1000-8000-00805f9b34fb"; // Replace with your characteristic UUID
+// Array of UUIDs to subscribe to
+const targetUUIDs = [
+  "00001996-0000-1000-8000-00805f9b34fb", // Replace with your UUIDs
+  // "00001997-0000-1000-8000-00805f9b34fb", // Example of another UUID
+];
 
 // Connect Button
 function connectToBLEDevice(callback) {
@@ -35,37 +40,78 @@ function connectToBLEDevice(callback) {
       return server.getPrimaryService(bleService);
     })
     .then((service) => {
-      return service.getCharacteristic(bleCharacteristicUUID);
+      // Retrieve all characteristics from the service
+      return service.getCharacteristics();
     })
-    .then((characteristic) => {
-      bleCharacteristic = characteristic;
-      console.log("Subscribed to characteristic notifications...");
-      // Start notifications on the characteristic
-      characteristic
-        .startNotifications()
-        .then(() => {
-          characteristic.addEventListener(
-            "characteristicvaluechanged",
-            handleNotifications
-          );
-          if (callback) {
-            callback(); // Call the callback function
-          }
-        })
-        .catch((error) => {
-          console.error("Error starting notifications:", error);
-        });
+    .then((characteristics) => {
+      // Store the characteristics in the array
+      characteristicsArray = characteristics;
+      console.log("Characteristics array:", characteristicsArray);
+
+      // Iterate over the array of UUIDs
+      targetUUIDs.forEach((targetUUID) => {
+        // Find the characteristic that matches the UUID
+        const targetCharacteristic = characteristicsArray.find(
+          (char) => char.uuid === targetUUID
+        );
+
+        if (targetCharacteristic) {
+          // Start notifications on the characteristic
+          targetCharacteristic
+            .startNotifications()
+            .then(() => {
+              targetCharacteristic.addEventListener(
+                "characteristicvaluechanged",
+                handleNotifications
+              );
+              console.log(
+                `Subscribed to notifications for characteristic: ${targetCharacteristic.uuid}`
+              );
+            })
+            .catch((error) => {
+              console.error("Error starting notifications:", error);
+            });
+        } else {
+          console.log(`Characteristic with UUID ${targetUUID} not found.`);
+        }
+      });
+
+      // Optionally, call the callback function after subscribing
+      if (callback) {
+        callback(); // Call the callback function once all subscriptions are done
+      }
     })
     .catch((error) => {
       console.error("Bluetooth Error:", error);
     });
+
+  //  // Subscribe to notifications for each characteristic
+  //  characteristicsArray.forEach((characteristic) => {
+  //   characteristic
+  //     .startNotifications()
+  //     .then(() => {
+  //       characteristic.addEventListener(
+  //         "characteristicvaluechanged",
+  //         handleNotifications
+  //       );
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error starting notifications:", error);
+  //     });
+  // });
 }
 
 // Handle incoming notifications
 function handleNotifications(event) {
-  const value = event.target.value;
+  const characteristic = event.target; // The characteristic that triggered the event
+  const value = characteristic.value; // Get the value of the characteristic
+
+  // Optionally, decode the value depending on your data format
   const decoder = new TextDecoder();
   const receivedData = decoder.decode(value);
+
+  // Log the characteristic UUID and the received data to differentiate them
+  console.log(`Notification from characteristic: ${characteristic.uuid}`);
   console.log(`Data received: ${receivedData}`);
 }
 function readCharacteristic() {

@@ -1,4 +1,8 @@
 body {
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none; /* For WebKit-based browsers (Safari, Chrome) */
+  -moz-user-select: none; /* For Firefox */
+  -ms-user-select: none; /* For Internet Explorer/Edge */
   font-family: Arial, sans-serif;
   background-color: #f4f4f9;
   margin: 0;

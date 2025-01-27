@@ -14,6 +14,7 @@ body {
   -moz-user-select: none; /* For Firefox */
   -ms-user-select: none; /* For Internet Explorer/Edge */
   touch-action: none; /* Prevents touch actions like selection on touch devices */
+  pointer-events: none; /* Disable all pointer interactions */
   -webkit-tap-highlight-color: transparent;
 }
 

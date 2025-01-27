@@ -204,9 +204,6 @@ function startControl() {
               console.warn("Could not lock orientation:", err);
             });
           }
-
-          // Disable text selection after fullscreen is activated
-          disableTextSelection();
         })
         .catch((err) => {
           console.error("Error entering fullscreen:", err);
@@ -215,14 +212,6 @@ function startControl() {
       console.warn("Fullscreen API is not supported by this browser.");
     }
   });
-}
-
-function disableTextSelection() {
-  document.body.style.userSelect = "none";
-  document.body.style.webkitUserSelect = "none";
-  document.body.style.msUserSelect = "none";
-  document.body.style.mozUserSelect = "none";
-  document.body.style.touchAction = "none";
 }
 
 function exitControl() {

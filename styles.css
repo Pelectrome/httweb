@@ -100,19 +100,19 @@ body {
   background: #2980b9;
 }
 
-.control-buttons .up {
+.control-buttons #up {
   grid-area: up;
 }
 
-.control-buttons .down {
+.control-buttons #down {
   grid-area: down;
 }
 
-.control-buttons .left {
+.control-buttons #left {
   grid-area: left;
 }
 
-.control-buttons .right {
+.control-buttons #right {
   grid-area: right;
 }
 

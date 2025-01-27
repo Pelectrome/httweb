@@ -234,10 +234,10 @@ function exitControl() {
 
 let lightOn = false;
 
-const upButton = document.getElementsByClassName("up");
-const downButton = document.getElementsByClassName("down");
-const leftButton = document.getElementsByClassName("left");
-const rightButton = document.getElementsByClassName("right");
+const upButton = document.getElementById("up");
+const downButton = document.getElementById("down");
+const leftButton = document.getElementById("left");
+const rightButton = document.getElementById("right");
 
 upButton.addEventListener("mouseup", () => move("stop"));
 upButton.addEventListener("touchend", () => move("stop"));

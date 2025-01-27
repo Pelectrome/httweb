@@ -9,6 +9,10 @@ const targetSubscribeUUIDs = [
   // "00001997-0000-1000-8000-00805f9b34fb", // Example of another UUID
 ];
 
+const ControlerCharacteristic_uuid = "00001996-0000-1000-8000-00805f9b34fb";
+const SpeedCharacteristic_uuid = "00001997-0000-1000-8000-00805f9b34fb";
+const LightCharacteristic_uuid = "00001998-0000-1000-8000-00805f9b34fb";
+
 // Connect Button
 function connectToBLEDevice(callback) {
   if (bleDevice) {
@@ -181,59 +185,32 @@ function onDisconnected(event) {
   bleDevice = null;
 }
 
-let lightOn = false;
-
-function move(direction) {
-  console.log(`Moving ${direction}`);
-  // Add your logic to send the direction command to the robot
-}
-
-function updateSpeed(value) {
-  document.getElementById("speed-value").textContent = value;
-  console.log(`Speed set to ${value}%`);
-  // Add your logic to send the speed value to the robot
-}
-
-function toggleLight() {
-  lightOn = !lightOn;
-  const lightButton = document.getElementById("light");
-  if (lightOn) {
-    lightButton.textContent = "Light On";
-    lightButton.classList.add("light-on");
-  } else {
-    lightButton.textContent = "Light Off";
-    lightButton.classList.remove("light-on");
-  }
-  console.log(`Light is now ${lightOn ? "on" : "off"}`);
-  // Add your logic to toggle the light on the robot
-}
-
 function startControl() {
   connectToBLEDevice(() => {
     console.log("Device connected successfully!");
     // Perform any other actions after the connection is successful
-    // const connectScreen = document.querySelector(".connect-screen");
-    // const main = document.getElementById("main");
+    const connectScreen = document.querySelector(".connect-screen");
+    const main = document.getElementById("main");
 
-    // connectScreen.style.display = "none";
-    // main.style.display = "flex";
+    connectScreen.style.display = "none";
+    main.style.display = "flex";
 
-    // if (main.requestFullscreen) {
-    //   main
-    //     .requestFullscreen()
-    //     .then(() => {
-    //       if (screen.orientation && screen.orientation.lock) {
-    //         screen.orientation.lock("landscape").catch((err) => {
-    //           console.warn("Could not lock orientation:", err);
-    //         });
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.error("Error entering fullscreen:", err);
-    //     });
-    // } else {
-    //   console.warn("Fullscreen API is not supported by this browser.");
-    // }
+    if (main.requestFullscreen) {
+      main
+        .requestFullscreen()
+        .then(() => {
+          if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock("landscape").catch((err) => {
+              console.warn("Could not lock orientation:", err);
+            });
+          }
+        })
+        .catch((err) => {
+          console.error("Error entering fullscreen:", err);
+        });
+    } else {
+      console.warn("Fullscreen API is not supported by this browser.");
+    }
   });
 }
 
@@ -253,6 +230,45 @@ function exitControl() {
   //         console.error('Error exiting fullscreen:', err);
   //     });
   // }
+}
+
+let lightOn = false;
+
+function move(direction) {
+  console.log(`Moving ${direction}`);
+  if (direction === "forward") {
+    writeCharacteristic(ControlerCharacteristic_uuid, "F");
+  } else if (direction === "backward") {
+    writeCharacteristic(ControlerCharacteristic_uuid, "B");
+  } else if (direction === "left") {
+    writeCharacteristic(ControlerCharacteristic_uuid, "L");
+  } else if (direction === "right") {
+    writeCharacteristic(ControlerCharacteristic_uuid, "R");
+  }
+  // Add your logic to send the direction command to the robot
+}
+
+function updateSpeed(value) {
+  document.getElementById("speed-value").textContent = value;
+  console.log(`Speed set to ${value}%`);
+  writeCharacteristic(SpeedCharacteristic_uuid, value.toString());
+  // Add your logic to send the speed value to the robot
+}
+
+function toggleLight() {
+  lightOn = !lightOn;
+  const lightButton = document.getElementById("light");
+  if (lightOn) {
+    lightButton.textContent = "Light On";
+    lightButton.classList.add("light-on");
+    writeCharacteristic(LightCharacteristic_uuid, "1");
+  } else {
+    lightButton.textContent = "Light Off";
+    lightButton.classList.remove("light-on");
+    writeCharacteristic(LightCharacteristic_uuid, "0");
+  }
+  console.log(`Light is now ${lightOn ? "on" : "off"}`);
+  // Add your logic to toggle the light on the robot
 }
 
 let wakeLock = null;

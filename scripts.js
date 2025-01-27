@@ -195,23 +195,34 @@ function startControl() {
     connectScreen.style.display = "none";
     main.style.display = "flex";
 
-    // if (main.requestFullscreen) {
-    //   main
-    //     .requestFullscreen()
-    //     .then(() => {
-    //       if (screen.orientation && screen.orientation.lock) {
-    //         screen.orientation.lock("landscape").catch((err) => {
-    //           console.warn("Could not lock orientation:", err);
-    //         });
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.error("Error entering fullscreen:", err);
-    //     });
-    // } else {
-    //   console.warn("Fullscreen API is not supported by this browser.");
-    // }
+    if (main.requestFullscreen) {
+      main
+        .requestFullscreen()
+        .then(() => {
+          if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock("landscape").catch((err) => {
+              console.warn("Could not lock orientation:", err);
+            });
+          }
+
+          // Disable text selection after fullscreen is activated
+          disableTextSelection();
+        })
+        .catch((err) => {
+          console.error("Error entering fullscreen:", err);
+        });
+    } else {
+      console.warn("Fullscreen API is not supported by this browser.");
+    }
   });
+}
+
+function disableTextSelection() {
+  document.body.style.userSelect = "none";
+  document.body.style.webkitUserSelect = "none";
+  document.body.style.msUserSelect = "none";
+  document.body.style.mozUserSelect = "none";
+  document.body.style.touchAction = "none";
 }
 
 function exitControl() {

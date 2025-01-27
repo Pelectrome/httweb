@@ -185,6 +185,7 @@ function onDisconnected(event) {
   bleDevice = null;
 }
 
+// Prevent text selection and touch selection in fullscreen
 function preventSelection(event) {
   event.preventDefault();
 }
@@ -208,8 +209,9 @@ function startControl() {
         .requestFullscreen()
         .then(() => {
           if (screen.orientation && screen.orientation.lock) {
-            document.addEventListener("selectstart", preventSelection);
-            document.addEventListener("touchstart", preventTouch);
+            document.addEventListener("selectstart", preventSelection); // Disable text selection in fullscreen
+            document.addEventListener("touchstart", preventTouch); // Disable touch selection in fullscreen
+
             screen.orientation.lock("landscape").catch((err) => {
               console.warn("Could not lock orientation:", err);
             });

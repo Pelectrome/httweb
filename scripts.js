@@ -26,7 +26,8 @@ function connectToBLEDevice(callback) {
 
   navigator.bluetooth
     .requestDevice({
-      acceptAllDevices: true, // if you want to scan without filter
+      filters: [{ name: deviceName }],
+      // acceptAllDevices: true, // if you want to scan without filter
       optionalServices: [bleService],
     })
     .then((device) => {

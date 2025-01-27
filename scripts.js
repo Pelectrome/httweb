@@ -280,7 +280,7 @@ const speedValueDisplay = document.getElementById("speed-value");
 
 // Variable to store the current slider value
 let currentSpeed = speedSlider.value;
-
+speedValueDisplay.textContent = `Speed : ${currentSpeed}`;
 // Function to update speed value
 function updateSpeed(value) {
   console.log(`Speed updated to: ${value}`);
@@ -290,7 +290,7 @@ function updateSpeed(value) {
 // Listen for the input event (to preview the value while dragging)
 speedSlider.addEventListener("input", (event) => {
   currentSpeed = event.target.value; // Update the current speed value
-  speedValueDisplay.textContent = `Speed: ${currentSpeed}`; // Show live value
+  speedValueDisplay.textContent = `Speed : ${currentSpeed}`; // Show live value
 });
 
 // Trigger the function only when the slider interaction ends

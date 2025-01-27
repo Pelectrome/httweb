@@ -185,6 +185,14 @@ function onDisconnected(event) {
   bleDevice = null;
 }
 
+function preventSelection(event) {
+  event.preventDefault();
+}
+
+function preventTouch(event) {
+  event.preventDefault();
+}
+
 function startControl() {
   connectToBLEDevice(() => {
     console.log("Device connected successfully!");
@@ -200,6 +208,8 @@ function startControl() {
         .requestFullscreen()
         .then(() => {
           if (screen.orientation && screen.orientation.lock) {
+            document.addEventListener("selectstart", preventSelection);
+            document.addEventListener("touchstart", preventTouch);
             screen.orientation.lock("landscape").catch((err) => {
               console.warn("Could not lock orientation:", err);
             });

@@ -189,11 +189,11 @@ function startControl() {
   connectToBLEDevice(() => {
     console.log("Device connected successfully!");
     // Perform any other actions after the connection is successful
-    // const connectScreen = document.querySelector(".connect-screen");
-    // const main = document.getElementById("main");
+    const connectScreen = document.querySelector(".connect-screen");
+    const main = document.getElementById("main");
 
-    // connectScreen.style.display = "none";
-    // main.style.display = "flex";
+    connectScreen.style.display = "none";
+    main.style.display = "flex";
 
     // if (main.requestFullscreen) {
     //   main

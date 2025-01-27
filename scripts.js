@@ -111,8 +111,9 @@ function handleNotifications(event) {
   const receivedData = decoder.decode(value);
 
   // Log the characteristic UUID and the received data to differentiate them
-  console.log(`Notification from characteristic: ${characteristic.uuid}`);
-  console.log(`Data received: ${receivedData}`);
+  console.log(
+    `Notification from characteristic: ${characteristic.uuid} : ${receivedData}`
+  );
 }
 function readCharacteristic(targetUUID) {
   if (!characteristicsArray || characteristicsArray.length === 0) {

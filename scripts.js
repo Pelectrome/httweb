@@ -239,15 +239,23 @@ const downButton = document.getElementById("down");
 const leftButton = document.getElementById("left");
 const rightButton = document.getElementById("right");
 
+upButton.addEventListener("touchstart", () => move("forward"));
+upButton.addEventListener("mousedown", () => move("forward"));
 upButton.addEventListener("mouseup", () => move("stop"));
 upButton.addEventListener("touchend", () => move("stop"));
 
+downButton.addEventListener("touchstart", () => move("backward"));
+downButton.addEventListener("mousedown", () => move("backward"));
 downButton.addEventListener("mouseup", () => move("stop"));
 downButton.addEventListener("touchend", () => move("stop"));
 
+leftButton.addEventListener("touchstart", () => move("left"));
+leftButton.addEventListener("mousedown", () => move("left"));
 leftButton.addEventListener("mouseup", () => move("stop"));
 leftButton.addEventListener("touchend", () => move("stop"));
 
+rightButton.addEventListener("touchstart", () => move("right"));
+rightButton.addEventListener("mousedown", () => move("right"));
 rightButton.addEventListener("mouseup", () => move("stop"));
 rightButton.addEventListener("touchend", () => move("stop"));
 

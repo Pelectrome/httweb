@@ -234,6 +234,23 @@ function exitControl() {
 
 let lightOn = false;
 
+const upButton = document.getElementsByClassName("up");
+const downButton = document.getElementsByClassName("down");
+const leftButton = document.getElementsByClassName("left");
+const rightButton = document.getElementsByClassName("right");
+
+upButton.addEventListener("mouseup", () => move("stop"));
+upButton.addEventListener("touchend", () => move("stop"));
+
+downButton.addEventListener("mouseup", () => move("stop"));
+downButton.addEventListener("touchend", () => move("stop"));
+
+leftButton.addEventListener("mouseup", () => move("stop"));
+leftButton.addEventListener("touchend", () => move("stop"));
+
+rightButton.addEventListener("mouseup", () => move("stop"));
+rightButton.addEventListener("touchend", () => move("stop"));
+
 function move(direction) {
   console.log(`Moving ${direction}`);
   if (direction === "forward") {
@@ -244,6 +261,8 @@ function move(direction) {
     writeCharacteristic(ControlerCharacteristic_uuid, "L");
   } else if (direction === "right") {
     writeCharacteristic(ControlerCharacteristic_uuid, "R");
+  } else if (direction === "stop") {
+    writeCharacteristic(ControlerCharacteristic_uuid, "S");
   }
   // Add your logic to send the direction command to the robot
 }

@@ -16,6 +16,8 @@ body {
   -ms-user-select: none;
   user-select: none;
 
+  cursor: default; /* Disable text selection cursor */
+
   -webkit-tap-highlight-color: transparent;
 }
 

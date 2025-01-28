@@ -5,7 +5,7 @@ const deviceName = "Homing Tool Tray"; // Change this to your device's name
 const bleService = "00001995-0000-1000-8000-00805f9b34fb"; // Replace with your service UUID
 // Array of UUIDs to subscribe to
 const targetSubscribeUUIDs = [
-  "00001996-0000-1000-8000-00805f9b34fb", // Replace with your UUIDs
+  "00001997-0000-1000-8000-00805f9b34fb", // Replace with your UUIDs
   // "00001997-0000-1000-8000-00805f9b34fb", // Example of another UUID
 ];
 
@@ -113,6 +113,7 @@ function handleNotifications(event) {
   // Optionally, decode the value depending on your data format
   const decoder = new TextDecoder();
   const receivedData = decoder.decode(value);
+  speedValueDisplay.textContent = `Speed : ${receivedData}`;
 
   // Log the characteristic UUID and the received data to differentiate them
   console.log(

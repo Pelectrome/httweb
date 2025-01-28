@@ -388,5 +388,4 @@ if (screen.orientation) {
   window.addEventListener("resize", handleOrientationChange);
 }
 
-// Lock the orientation to landscape initially
-lockOrientation();
+

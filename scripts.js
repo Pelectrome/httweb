@@ -114,6 +114,7 @@ function handleNotifications(event) {
   const decoder = new TextDecoder();
   const receivedData = decoder.decode(value);
   speedValueDisplay.textContent = `Speed : ${receivedData}`;
+  speedSlider.value = receivedData;
 
   // Log the characteristic UUID and the received data to differentiate them
   console.log(

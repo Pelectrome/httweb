@@ -5,7 +5,7 @@ const deviceName = "Homing Tool Tray"; // Change this to your device's name
 const bleService = "00001995-0000-1000-8000-00805f9b34fb"; // Replace with your service UUID
 // Array of UUIDs to subscribe to
 const targetSubscribeUUIDs = [
-  "00001997-0000-1000-8000-00805f9b34fb", // Replace with your UUIDs
+  // "00001997-0000-1000-8000-00805f9b34fb", // Replace with your UUIDs
   // "00001997-0000-1000-8000-00805f9b34fb", // Example of another UUID
 ];
 

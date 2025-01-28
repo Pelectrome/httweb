@@ -215,8 +215,6 @@ function startControl() {
             document.addEventListener("selectstart", preventSelection); // Disable text selection in fullscreen
             document.addEventListener("touchstart", preventTouch); // Disable touch selection in fullscreen
 
-            document.body.style.transform = "rotate(90deg)";
-            document.body.style.transformOrigin = "top left"; // Set pivot point for rotation
             // screen.orientation.lock("landscape").catch((err) => {
             //   console.warn("Could not lock orientation:", err);
             // });

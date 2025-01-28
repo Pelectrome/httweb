@@ -5,7 +5,7 @@ const deviceName = "Homing Tool Tray"; // Change this to your device's name
 const bleService = "00001995-0000-1000-8000-00805f9b34fb"; // Replace with your service UUID
 // Array of UUIDs to subscribe to
 const targetSubscribeUUIDs = [
-  "00001998-0000-1000-8000-00805f9b34fb", // Replace with your UUIDs
+  // "00001997-0000-1000-8000-00805f9b34fb", // Replace with your UUIDs
   // "00001997-0000-1000-8000-00805f9b34fb", // Example of another UUID
 ];
 
@@ -200,6 +200,12 @@ function startControl() {
   connectToBLEDevice(() => {
     readCharacteristic("00001997-0000-1000-8000-00805f9b34fb");
     console.log("Device connected successfully!");
+    // Perform any other actions after the connection is successful
+    const connectScreen = document.querySelector(".connect-screen");
+    const main = document.getElementById("main");
+
+    connectScreen.style.display = "none";
+    main.style.display = "flex";
 
     if (main.requestFullscreen) {
       main
@@ -208,15 +214,10 @@ function startControl() {
           if (screen.orientation && screen.orientation.lock) {
             document.addEventListener("selectstart", preventSelection); // Disable text selection in fullscreen
             document.addEventListener("touchstart", preventTouch); // Disable touch selection in fullscreen
-            // Perform any other actions after the connection is successful
-            const connectScreen = document.querySelector(".connect-screen");
-            const main = document.getElementById("main");
 
-            connectScreen.style.display = "none";
-            main.style.display = "flex";
-            // screen.orientation.lock("landscape").catch((err) => {
-            //   console.warn("Could not lock orientation:", err);
-            // });
+            screen.orientation.lock("landscape").catch((err) => {
+              console.warn("Could not lock orientation:", err);
+            });
           }
         })
         .catch((err) => {

@@ -113,9 +113,6 @@ function handleNotifications(event) {
   // Optionally, decode the value depending on your data format
   const decoder = new TextDecoder();
   const receivedData = decoder.decode(value);
-  speedValueDisplay.textContent = `Speed : ${receivedData}`;
-  speedSlider.value = receivedData;
-
   // Log the characteristic UUID and the received data to differentiate them
   console.log(
     `Notification from characteristic: ${characteristic.uuid} : ${receivedData}`
@@ -143,6 +140,10 @@ function readCharacteristic(targetUUID) {
     .then((value) => {
       const decoder = new TextDecoder();
       const receivedData = decoder.decode(value);
+
+      speedValueDisplay.textContent = `Speed : ${receivedData}`;
+      speedSlider.value = receivedData;
+      
       console.log(`Data received from UUID ${targetUUID}: ${receivedData}`);
     })
     .catch((error) => {

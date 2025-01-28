@@ -143,7 +143,7 @@ function readCharacteristic(targetUUID) {
 
       speedValueDisplay.textContent = `Speed : ${receivedData}`;
       speedSlider.value = receivedData;
-      
+
       console.log(`Data received from UUID ${targetUUID}: ${receivedData}`);
     })
     .catch((error) => {

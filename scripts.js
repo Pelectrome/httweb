@@ -354,3 +354,39 @@ async function requestWakeLock() {
 window.addEventListener("load", () => {
   requestWakeLock();
 });
+
+// Function to lock orientation to landscape
+function lockOrientation() {
+  if (screen.orientation && screen.orientation.lock) {
+    screen.orientation.lock("landscape").catch((err) => {
+      console.warn("Could not lock orientation to landscape:", err);
+    });
+  } else {
+    console.warn("Orientation lock API is not supported by this browser.");
+  }
+}
+
+// Event listener to detect orientation change
+function handleOrientationChange() {
+  const orientation = screen.orientation || window.orientation;
+  console.log("Current orientation:", orientation);
+
+  // Check if the orientation is not landscape
+  if (screen.orientation.type.startsWith("portrait")) {
+    console.log(
+      "Orientation changed to portrait. Forcing back to landscape..."
+    );
+    lockOrientation();
+  }
+}
+
+// Listen for orientation change
+if (screen.orientation) {
+  screen.orientation.addEventListener("change", handleOrientationChange);
+} else {
+  // Fallback for older browsers
+  window.addEventListener("resize", handleOrientationChange);
+}
+
+// Lock the orientation to landscape initially
+lockOrientation();

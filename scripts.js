@@ -233,6 +233,13 @@ function startControl() {
 }
 
 function exitControl() {
+  if (screen.orientation) {
+    screen.orientation.removeEventListener("change", handleOrientationChange);
+  } else {
+    // Fallback for older browsers
+    window.removeEventListener("resize", handleOrientationChange);
+  }
+
   localStorage.clear();
   sessionStorage.clear();
   // Reload the page

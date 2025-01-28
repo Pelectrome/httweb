@@ -18,11 +18,10 @@ body {
 
   -webkit-tap-highlight-color: transparent;
 
-  transform: rotate(90deg);
-  transform-origin: top left; /* Adjust origin to control pivot point */
-  height: 100vw; /* Adjust for proper scaling */
-  width: 100vh; /* Adjust for proper scaling */
-  overflow: hidden; /* Prevent scrollbars */
+  overflow: hidden;
+  transform-origin: right;
+  transform: translate(-100vw, 0) rotate(180deg);
+  writing-mode: vertical-rl;
 }
 
 .fullscreen {

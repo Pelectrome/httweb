@@ -19,20 +19,7 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-.wrapper {
-  transform: rotate(90deg);
-  transform-origin: bottom left;
-  position: absolute;
-  top: -100vw;
-  left: 0;
-  height: 100vw;
-  width: 100vh;
-  background-color: #000;
-  color: #fff;
-  overflow: auto;
-}
-
-.fullscreen {
+/* .fullscreen {
   position: absolute;
   top: 0;
   left: 0;
@@ -42,6 +29,21 @@ body {
   flex-direction: row;
   background-color: #333;
   color: white;
+} */
+
+.fullscreen {
+  transform: rotate(90deg);
+  transform-origin: bottom left;
+  position: absolute;
+  top: -100vw;
+  left: 0;
+  height: 100vw;
+  width: 100vh;
+  display: none;
+  flex-direction: row;
+  background-color: #333;
+  color: white;
+  overflow: auto;
 }
 
 .connect-screen {

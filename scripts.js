@@ -104,7 +104,6 @@ function connectToBLEDevice(callback) {
   //     });
   // });
 }
-
 // Handle incoming notifications
 function handleNotifications(event) {
   const characteristic = event.target; // The characteristic that triggered the event
@@ -216,9 +215,11 @@ function startControl() {
             document.addEventListener("selectstart", preventSelection); // Disable text selection in fullscreen
             document.addEventListener("touchstart", preventTouch); // Disable touch selection in fullscreen
 
-            screen.orientation.lock("landscape").catch((err) => {
-              console.warn("Could not lock orientation:", err);
-            });
+            document.body.style.transform = "rotate(90deg)";
+            document.body.style.transformOrigin = "top left"; // Set pivot point for rotation
+            // screen.orientation.lock("landscape").catch((err) => {
+            //   console.warn("Could not lock orientation:", err);
+            // });
           }
         })
         .catch((err) => {
